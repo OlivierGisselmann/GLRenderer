@@ -15,7 +15,9 @@ file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cp
 
 add_executable(${CMAKE_PROJECT_NAME} ${SOURCES})
 
-# Linking
+# Set resource path with macro
 target_compile_definitions(${CMAKE_PROJECT_NAME} PUBLIC RESOURCES_PATH=${CMAKE_CURRENT_SOURCE_DIR}/resources)
+
+# Libraries linking
 target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include/)
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE glfw)
