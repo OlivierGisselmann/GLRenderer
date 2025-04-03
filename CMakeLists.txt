@@ -13,11 +13,12 @@ set(CMAKE_CXX_STANDARD 20)
 
 file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
 
-add_executable(${CMAKE_PROJECT_NAME} ${SOURCES})
+add_executable(${CMAKE_PROJECT_NAME} ${SOURCES} src/glad.c)
 
 # Set resource path with macro
-target_compile_definitions(${CMAKE_PROJECT_NAME} PUBLIC RESOURCES_PATH=${CMAKE_CURRENT_SOURCE_DIR}/resources)
+target_compile_definitions(${CMAKE_PROJECT_NAME} PUBLIC RESOURCES_PATH="${CMAKE_CURRENT_SOURCE_DIR}/resources")
+#target_compile_definitions(${CMAKE_PROJECT_NAME} PUBLIC RESOURCES_PATH=./resources)
 
 # Libraries linking
-target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include/)
+target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include/ ${CMAKE_CURRENT_SOURCE_DIR}/dependencies/)
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE glfw)

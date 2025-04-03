@@ -5,7 +5,7 @@
 class window
 {
 public:
-    window(int width, int height, const char* title);
+    window(int width, int height, const char* title, bool resizable);
     ~window();
 
     void update();

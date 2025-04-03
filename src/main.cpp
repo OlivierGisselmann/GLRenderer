@@ -4,7 +4,13 @@
 #include <utils/logger.hpp>
 #include <core/renderer.hpp>
 
-const renderer_config config { 800, 600, "Test Renderer" };
+const renderer_config config
+{
+    800,
+    600,
+    "Test Renderer",
+    false
+};
 
 int main()
 {

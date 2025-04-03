@@ -6,7 +6,7 @@
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
-window::window(int width, int height, const char* title)
+window::window(int width, int height, const char* title, bool resizable)
 {
     if (!glfwInit())
         throw std::runtime_error("Failed to initialize GLFW");
@@ -14,6 +14,7 @@ window::window(int width, int height, const char* title)
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_RESIZABLE, resizable);
 
     m_window = glfwCreateWindow(width, height, title, nullptr, nullptr);
     if (!m_window)
