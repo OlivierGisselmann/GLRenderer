@@ -1,5 +1,6 @@
 #include <core/renderer.hpp>
 #include <core/shader.hpp>
+#include <math/matrix.hpp>
 #include <utils/logger.hpp>
 
 void message_callback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, GLchar const* message, void const* user_param)
@@ -54,6 +55,8 @@ renderer::renderer(const renderer_config& config) : m_config(config)
 
     glEnable(GL_DEBUG_OUTPUT);
     glDebugMessageCallback(message_callback, nullptr);
+
+    glEnable(GL_CULL_FACE);
 }
 
 renderer::~renderer()
@@ -65,18 +68,18 @@ void renderer::render()
 {
     std::vector<vertex> v
     {
-        {{0.f, .5f, 0.f}, {0.f, 0.f, 1.f}, {0.f, 0.f}},
-        {{.5f, -.5f, 0.f}, {0.f, 0.f, 1.f}, {0.f, 0.f}},
+        {{0.f, .5f, 0.f}, {1.f, 0.f, 0.f}, {0.f, 0.f}},
+        {{.5f, -.5f, 0.f}, {0.f, 1.f, 0.f}, {0.f, 0.f}},
         {{-.5f, -.5f, 0.f}, {0.f, 0.f, 1.f}, {0.f, 0.f}}
     };
 
-    std::vector<unsigned int> i {0, 1, 2};
+    std::vector<unsigned int> i {2, 1, 0};
     std::vector<texture> t
     {
         {0, texture::type::DIFFUSE},
         {1, texture::type::SPECULAR}
     };
-    
+
     shader unlit(RESOURCES_PATH"/shaders/unlit.vert", RESOURCES_PATH"/shaders/unlit.frag");
 
     m_meshes.push_back(std::make_unique<mesh>(v, i, t));
@@ -84,7 +87,7 @@ void renderer::render()
     while (!m_window->should_close())
     {
         glClear(GL_COLOR_BUFFER_BIT);
-        glClearColor(1.f, 0.f, 0.f, 1.f);
+        glClearColor(0.f, 0.f, 0.f, 1.f);
 
         unlit.use();
 
